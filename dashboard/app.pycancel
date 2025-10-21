@@ -1,0 +1,38 @@
+import sys
+import os
+
+# Add project root to Python path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+
+import streamlit as st
+import pandas as pd
+from ai.predictor_engine import predict_failure
+from ai.nlp_processor import generate_test_from_requirement
+
+st.set_page_config(page_title="IntelliTest Dashboard", layout="wide")
+
+st.title("🧠 IntelliTest - AI Test Automation Dashboard")
+
+# --- Upload requirement file ---
+uploaded_file = st.file_uploader("Upload CSV of Test Requirements", type=["csv"])
+if uploaded_file is not None:
+    df = pd.read_csv(uploaded_file)
+    st.subheader("Uploaded Test Requirements")
+    st.dataframe(df)
+
+    # Generate test cases
+    st.subheader("Generated Test Cases")
+    test_cases = []
+    for req in df["requirement"]:
+        test_case = generate_test_from_requirement(req)
+        test_cases.append(test_case)
+    st.dataframe(pd.DataFrame(test_cases))
+
+    # Predict failures
+    st.subheader("Predicted Failures")
+    predictions = []
+    for i, row in df.iterrows():
+        # Assume CSV has execution_time & complexity columns
+        prob = predict_failure(row["execution_time"], row["complexity"])
+        predictions.append({"test_id": row["test_id"], "predicted_failure": prob})
+    st.dataframe(pd.DataFrame(predictions))

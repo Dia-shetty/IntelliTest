@@ -1,0 +1,11 @@
+{
+  "id": "test_login_valid",
+  "description": "Verify user can login with valid credentials",
+  "steps": [
+    "Open browser",
+    "Navigate to login page",
+    "Enter valid username and password",
+    "Click login button",
+    "Verify dashboard is visible"
+  ]
+}

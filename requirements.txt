@@ -1,0 +1,25 @@
+# Automation & browser
+selenium
+playwright
+pytest
+pytest-html
+allure-pytest
+
+# AI/ML
+spacy
+scikit-learn
+tensorflow
+sentence-transformers
+
+# Utilities
+pandas
+numpy
+flask
+streamlit
+joblib
+pymongo
+python-dotenv
+opencv-python-headless
+Pillow
+imagehash
+requests
