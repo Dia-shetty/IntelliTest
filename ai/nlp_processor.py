@@ -1,7 +1,17 @@
-import spacy
+
 
 # Load English model
-nlp = spacy.load("en_core_web_sm")
+import spacy
+
+# Try to load the model, if not present, download it
+try:
+    nlp = spacy.load("en_core_web_sm")
+except OSError:
+    import spacy.cli
+    spacy.cli.download("en_core_web_sm")
+    nlp = spacy.load("en_core_web_sm")
+
+
 
 def generate_test_from_requirement(requirement: str):
     """
